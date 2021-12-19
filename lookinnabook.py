@@ -293,7 +293,7 @@ while (run):
         if (searchBy == 'pub_year'):
             searchArg = input("Enter Year Published: ")
             searchByQuery(searchBy, searchArg)
-
+################################################################################################################################
     if (userInput == "add cc" and isLoggedIn):
 
         Newcc = input("Enter 16 digit Credit Card Number (no spaces): ")
@@ -316,6 +316,7 @@ while (run):
         query = makeQuery(Newcc, currUser)
         cursor.execute("insert into bookstore.user_cc values" + query)
         print("...CC Added")
+################################################################################################################################
     if (userInput == "add basket" and isLoggedIn):
         cursor.execute("insert into bookstore.basket values(Default)")
         cursor.execute("select * from bookstore.basket")
@@ -323,7 +324,7 @@ while (run):
         query = makeQuery(str(result[-1][0]), currUser)
         cursor.execute("insert into bookstore.user_basket values" + query)
         print("...Added Basket")
-
+################################################################################################################################
     if (userInput == "add addr" and isLoggedIn):
 
         addrname = input("Enter Address Name: ")
@@ -340,7 +341,7 @@ while (run):
         query = makeQuery(str(result[-1][0]), currUser)
         cursor.execute("insert into bookstore.user_addr values" + query)
         print("...Added Address")
-
+################################################################################################################################
     if (userInput == "del book" and isLoggedIn):
         if (not isAdmin):
             print("Must be Admin to Delete a Book")
@@ -362,7 +363,7 @@ while (run):
         query = ("""delete from bookstore.book where isbn='{}'""").format(ISBN)
         cursor.execute(query)
         print("..." + title + "was Deleted ")
-
+################################################################################################################################
     if (userInput == "add book" and isLoggedIn and isAdmin):
         ISBN = input('Enter ISBN-10: ')
         query = (
@@ -423,7 +424,7 @@ while (run):
         query = makeQuery(Publisher, ISBN, PubMonth, PubDay, PubYear)
         cursor.execute("insert into bookstore.publishes values" + query)
         continue
-
+################################################################################################################################
     if (userInput == "add book" and isLoggedIn):
         ISBN = input('Select ISBN-10:')
         Quantity = input('Quantity? (Max 99):')
@@ -442,7 +443,7 @@ while (run):
         except UniqueViolation as e:
             cursor.execute("update bookstore.book_basket set quantity = quantity + "
                            + Quantity + "WHERE isbn = '" + ISBN + "' AND basket_id = '" + basketID + "';")
-
+################################################################################################################################
     if (userInput == "view basket" and isLoggedIn):
         cursor.execute(
             "select basket_id from bookstore.user_basket where username='" + currUser + "';")
@@ -463,7 +464,7 @@ while (run):
             total += row[4]
         print("")
         print("BASKET TOTAL:   " + str(total))
-
+################################################################################################################################
     if (userInput == "checkout" and isLoggedIn):
         cursor.execute(
             "select basket_id from bookstore.user_basket where username='" + currUser + "';")
@@ -592,7 +593,7 @@ where isbn = '{}'""").format(row[1])
                 query = (
                     """update bookstore.book set stock = stock + {}  where isbn = '{}'""").format(newstock, row[1])
                 cursor.execute(query)
-
+################################################################################################################################
     if (userInput == "track"):
         track = input("Enter Tracking Number:")
         query = (
